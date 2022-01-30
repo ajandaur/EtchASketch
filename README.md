@@ -1,12 +1,20 @@
 # Etch-a-Sketch
-
-Created as part of the Odin Project curriculum to show skills in manipulating Document-Object-Model (DOM)
+[Live Demo](https://ajandaur.github.io/EtchASketch/)
 
 ## Description
-a browser version of something between a sketchpad and an Etch-A-Sketch
+Toy project to practice manipulating Document-Object-Model (DOM). 
 
 ## Functionality
-COMING SOON
+A single-page app that allows you to draw on a sketchpad with customizable options such as pen color and grid size. 
 
-## Demo
-COMING SOON
+## Technologies used
+
+- ### Frontend
+  - HTML,CSS,Javascript
+- ### Backend
+  - Coming soon!
+
+## Future Improvements
+- Add a backend using Node.js 
+- Create color picker for more variety of colors to choose from
+- add slider to replace user input for size of grid
