@@ -3,9 +3,32 @@ const resetBtn = document.querySelector('.resetButton');
 const rainbowBtn = document.querySelector('.rainbowButton');
 const defaultBtn = document.querySelector('.defaultButton');
 const eraserBtn = document.querySelector('.eraserButton');
+const settings = document.querySelector('.settings');
+
+const buttons = document.getElementsByTagName("button");
+
 var rainbowToggle = false;
 var eraserToggle = false;
 var defaultToggle = true;
+
+// Pen and background colors 
+let penColor = "#FFF";
+let backgroundColor = "#333";
+
+penColor = document.getElementById("color-select");
+backgroundColor = document.getElementById("background-select");
+backgroundColor.addEventListener("input", changeBackgroundColor);
+
+
+// Add active button properties 
+for (let i = 0; i < buttons.length; i++) {
+  if (buttons[i].classList.contains("clear-button") == false) {
+    buttons[i].addEventListener("click", () => {
+      buttons[i].classList.toggle("button-active");
+    });
+  }
+}
+
 
 // Call function to make divs
 createDivs()
@@ -18,32 +41,34 @@ function createDivs(gridNum = 16) {
 
   for (let i = 0; i <= totalDivs; i++) {
     let div = document.createElement('div');
+    div.classList ="box";
     div.addEventListener('mouseover', changePenColor);
     grid.appendChild(div);
   }
 }
 
+function changeBackgroundColor(e) { 
+  gridItems = document.querySelectorAll('.box');
+  backgroundColor = e.target.value;
+  for (let i = 0; i < gridItems.length; i++) { 
+    grid.style.backgroundColor = backgroundColor;
+    settings.style.boxShadowd = `inset 0 0 10px ${backgroundColor}`;
+  }
+}
+
 // f(x) to change color
 function changePenColor(e) { 
-  if(rainbowToggle) {
-     let red = Math.floor(Math.random() * 256);
-     let green = Math.floor(Math.random() * 256);
-     let blue = Math.floor(Math.random() * 256);
-     let color = `rgb(${red}, ${green}, ${blue})`;
-     e.target.style.backgroundColor = color;
-     return;
-  }
 
-  if(defaultToggle) { 
-    e.target.style.backgroundColor = 'black';
-    return
-  }
-
-  if (eraserToggle) {
+  if (rainbowBtn.classList.contains("button-active") == true) {
+    e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+    return;
+  } else if (defaultBtn.classList.contains("button-active") == true) {
+    e.target.style.backgroundColor = penColor.value;
+    return;
+  } else { 
     e.target.style.backgroundColor = 'white';
-    return
   }
-
+  
 }
 
 // f(x) to destory divs
@@ -59,21 +84,11 @@ function resetDivs() {
 rainbowBtn.addEventListener('click', () => {
   rainbowToggle = true;
   eraserToggle = false;
-  defaultToggle = false;
 });
-
-// event listeners
-defaultBtn.addEventListener('click', () => {
-  rainbowToggle = false;
-  eraserToggle = false;
-  defaultToggle = true;
-});
-
 
 eraserBtn.addEventListener('click', () => {
   eraserToggle = true 
   rainbowToggle = false 
-  defaultToggle = false
 });
 
 resetBtn.addEventListener('click', () => { 
@@ -85,6 +100,9 @@ resetBtn.addEventListener('click', () => {
   if(input == 0 || input == NaN) {
     return;
   } else { 
+    if (resetBtn.classList.contains("button-active") === true) {
+      resetBtn.classList.remove("button-active");
+    }
     resetDivs();
     createDivs(input);
   }
