@@ -60,14 +60,27 @@ function changeBackgroundColor(e) {
 function changePenColor(e) { 
 
   if (rainbowBtn.classList.contains("button-active") == true) {
+    defaultBtn.classList.remove("button-active"); 
+    eraserBtn.classList.remove("button-active");
+    
     e.target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
     return;
+
   } else if (defaultBtn.classList.contains("button-active") == true) {
+    eraserBtn.classList.remove("button-active");
+    rainbowBtn.classList.remove("button-active");
+
     e.target.style.backgroundColor = penColor.value;
     return;
-  } else { 
+
+  } else if (eraserBtn.classList.contains("button-active") == true) { 
+    defaultBtn.classList.remove("button-active");
+    rainbowBtn.classList.remove("button-active");
+
     e.target.style.backgroundColor = 'white';
-  }
+
+  } 
+
   
 }
 
@@ -82,13 +95,21 @@ function resetDivs() {
 
 // event listeners
 rainbowBtn.addEventListener('click', () => {
-  rainbowToggle = true;
-  eraserToggle = false;
+  rainbowBtn.classList.add("button-active");
+  defaultBtn.classList.remove("button-active");
+  eraserBtn.classList.remove("button-active");
 });
 
 eraserBtn.addEventListener('click', () => {
-  eraserToggle = true 
-  rainbowToggle = false 
+  eraserBtn.classList.add("button-active");
+  defaultBtn.classList.remove("button-active");
+  rainbowBtn.classList.remove("button-active");
+});
+
+defaultBtn.addEventListener("click", () => {
+  defaultBtn.classList.add("button-active");
+  eraserBtn.classList.remove("button-active");
+  rainbowBtn.classList.remove("button-active");
 });
 
 resetBtn.addEventListener('click', () => { 
