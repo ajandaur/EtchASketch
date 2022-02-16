@@ -7,10 +7,6 @@ const settings = document.querySelector('.settings');
 
 const buttons = document.getElementsByTagName("button");
 
-var rainbowToggle = false;
-var eraserToggle = false;
-var defaultToggle = true;
-
 // Pen and background colors 
 let penColor = "#FFF";
 let backgroundColor = "#333";
@@ -19,6 +15,15 @@ penColor = document.getElementById("color-select");
 backgroundColor = document.getElementById("background-select");
 backgroundColor.addEventListener("input", changeBackgroundColor);
 
+// Slider to grid 
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function () {
+  resetDivs();
+  createDivs(slider.value);
+};
 
 // Add active button properties 
 for (let i = 0; i < buttons.length; i++) {
